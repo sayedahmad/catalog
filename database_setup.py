@@ -5,7 +5,9 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+
 class User(Base):
+    """ User class """
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
@@ -22,8 +24,8 @@ class User(Base):
         }
 
 
-
 class Catagories(Base):
+    """ Catagories Class model """
     __tablename__ = 'catagories'
 
     id = Column(Integer, primary_key=True)
@@ -34,12 +36,14 @@ class Catagories(Base):
     @property
     def serialize(self):
         return{
-            'name'      : self.name,
-            'id'        : self.id,
-            'user_id'   : self.user_id
+            'name':     self.name,
+            'id':       self.id,
+            'user_id':  self.user_id
         }
 
+
 class Items(Base):
+    """ Item Class model """
     __tablename__ = 'items'
 
     id = Column(Integer, primary_key=True)
@@ -51,14 +55,13 @@ class Items(Base):
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
 
-
     @property
     def serialize(self):
         return{
-            'title'          : self.title,
-            'description'   : self.description,
-            'id'            : self.id,
-            'user_id'   : self.user_id
+            'title':        self.title,
+            'description':  self.description,
+            'id':           self.id,
+            'user_id':      self.user_id
         }
 
 engine = create_engine('sqlite:///catalog.db')

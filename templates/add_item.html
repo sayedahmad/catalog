@@ -7,11 +7,11 @@
      
     <div class="form-group">
       <label for="title">Title</label>
-      <input type="text" class="form-control" name="title" placeholder="Type item title">
+      <input type="text" class="form-control" name="title" placeholder="Type item title" required>
     </div>
     <div class="form-group">
       <label for="description">Description</label>
-      <input type="text" class="form-control" name="description" placeholder="Item Description">
+      <input type="text" class="form-control" name="description" placeholder="Item Description" required>
     </div>
    
     
@@ -19,14 +19,14 @@
       <form action="#" method = 'post'>
         <div class="form-group">
             <label for="catagory">Catagory</label>
-            <select name="catagory" class="form-control">
+            <select required name="catagory" class="form-control" >
               <option selected>Choose Catagory</option>
               {% for c in catagories %}
               <option >{{c.name}}</option>
     
             {% endfor%}
     
-              <option>...</option>
+        
             </select>
         </div>
         <div class="form-group">
