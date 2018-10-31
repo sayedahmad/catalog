@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% block content %}
+
+
+<form action="#" method="POST">
+    <div class="form-row">
+     
+    <div class="form-group">
+      <label for="catagory">Name</label>
+      <input type="text" class="form-control" name="name" value="{{catagory.name}}" placeholder="Type catagory name">
+    </div>
+   
+   
+    
+   
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a class="btn btn-primary" href="{{url_for('showCatagory', cat_id=catagory.id)}}">Cancel</a>
+        </div>
+    
+   
+    
+  </form>
+    
+
+    {% endblock %}

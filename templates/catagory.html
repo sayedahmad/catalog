@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% block content %}
+
+<ul class="list-unstyled components">
+        {% for i in items %}
+        <li ><a href="">{{i.title}}</a></li>
+
+        {% endfor%}
+    </ul>
+
+    <a class="btn btn-primary" href="{{url_for('editCatagory', cat_id=catagory.id)}}">Edit Catagory</a>
+    <a class="btn btn-primary" href="{{url_for('deleteCategory', cat_id=catagory.id)}}">Delete Catagory</a>
+    <a class="btn btn-primary" href="{{url_for('showCatagories')}}">Back</a>
+
+    {% endblock %}

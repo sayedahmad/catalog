@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block content %}
+
+<div class="list-unstyled components" style="font-size: 20px"><li ><a href="{{url_for('addItem')}}">Add Item</a></li></div>
+<br>
+
+<ul class="list-unstyled components">
+        {% for i in items %}
+        <li ><a href="{{url_for('showItem', item_id = i.id)}}">{{i.title}}</a>
+            {% for c in catagory %}
+                    {% if c.id == i.catagory_id %}
+                    <span class="text-muted"><em>({{c.name}})</em></span>
+                    {%endif%}
+                    {% endfor %}
+            </li>
+
+        {% endfor%}
+
+    </ul>
+
+    {% endblock %}
+
+    {%block sidebar%}
+
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Catalog App</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                    {% for c in catagory %}
+                    <li ><a href="{{url_for('showCatagory', cat_id = c.id)}}">{{c.name}}</a></li>
+                    {% endfor%}
+                <!-- <li ><a href="">{{catagory.name}}</a></li> -->
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li><a href="{{url_for('addCatagory')}}" class="addCatagory">New Catagory</a></li>
+    
+            </ul>
+        </nav>
+    {%endblock%}

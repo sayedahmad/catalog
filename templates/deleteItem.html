@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{% block content %}
+
+<div class="alert alert-primary" role="alert">
+    Do you want to delete item {{item.title}}?
+  </div>
+  
+ <form action="#" method="post">
+     <button class="btn btn-danger" type="submit">Yes</button>
+     <a class="btn btn-primary" href="{{url_for('showItem', item_id=item.id)}}">No</a>
+    </form> 
+  
+
+{% endblock %}
