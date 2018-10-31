@@ -42,7 +42,7 @@ session = DBsession()
 
 # Create new user
 def create_user(login_session):
-
+    """ Create new user """
     new_user = User(
                     name=login_session['username'],
                     email=login_session['email']
@@ -54,7 +54,7 @@ def create_user(login_session):
 
 
 def get_user_id(email):
-
+    """ Get user ID """
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
@@ -65,6 +65,7 @@ def get_user_id(email):
 @app.route('/')
 @app.route('/login')
 def showLogin():
+    """ Shows login page """
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
@@ -73,6 +74,7 @@ def showLogin():
 
 @app.route('/gconnect', methods=['POST', 'GET'])
 def gconnect():
+    """ call back function for signin """
     # Validate state token
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -169,6 +171,7 @@ def gconnect():
 
 @app.route('/gdisconnect')
 def gdisconnect():
+    """ Disconnect google authenticated user and deletes user data """
     access_token = login_session['access_token']
     print 'In gdisconnect access token is %s', access_token
     print 'User name is: '
@@ -202,6 +205,7 @@ def gdisconnect():
 
 @app.route('/showCatagories')
 def showCatagories():
+    """ Shows recent categories """
     catagory = session.query(Catagories)
     items = session.query(Items).order_by(desc(Items.id))
     return render_template('recentItems.html',
@@ -211,7 +215,7 @@ def showCatagories():
 
 @app.route('/addCatagory', methods=['GET', 'POST'])
 def addCatagory():
-
+    """ Add new categories """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -231,6 +235,7 @@ def addCatagory():
 @app.route('/category/<int:cat_id>/')
 @app.route('/category/<int:category_id>/item/')
 def showCatagory(cat_id):
+    """ Show a specific category"""
     catagory = session.query(Catagories).filter_by(id=cat_id).one()
     items = session.query(Items).filter_by(catagory_id=cat_id).all()
     return render_template("catagory.html",
@@ -240,7 +245,7 @@ def showCatagory(cat_id):
 
 @app.route('/editCatagory/<int:cat_id>/', methods=['GET', 'POST'])
 def editCatagory(cat_id):
-
+    """ edit an existing category """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -263,7 +268,7 @@ def editCatagory(cat_id):
 
 @app.route('/category/<int:cat_id>/delete/', methods=['GET', 'POST'])
 def deleteCategory(cat_id):
-
+    """ Delete an existing category """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -287,7 +292,7 @@ def deleteCategory(cat_id):
 
 @app.route('/addItem', methods=['GET', 'POST'])
 def addItem():
-
+    """ Add an item to a category """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -314,6 +319,7 @@ def addItem():
 
 @app.route('/showItem/<int:item_id>/')
 def showItem(item_id):
+    """ show a specific item """
     item = session.query(Items).filter_by(id=item_id).one()
     return render_template("item_description.html",
                            item=item, message='Item View')
@@ -321,7 +327,7 @@ def showItem(item_id):
 
 @app.route('/editItem/<int:item_id>/', methods=['GET', 'POST'])
 def editItem(item_id):
-
+    """ Edit an item with a given id """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -353,7 +359,7 @@ def editItem(item_id):
 
 @app.route('/deleteItem/<int:item_id>/', methods=['GET', 'POST'])
 def deleteItem(item_id):
-
+    """ Delete an item with a given id """
     if 'username' not in login_session:
         return redirect('/login')
 
